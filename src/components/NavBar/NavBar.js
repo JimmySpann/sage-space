@@ -10,17 +10,20 @@ function NavBar({ currentUser, logout }) {
           <h1>Sage Space</h1>
         </NavLink>
         <ul className="nav-list">
-          <li className='nav-item'>
-            {/* Don't forget the 'exact' prop for home nav link */}
-            <NavLink className='nav-link' exact to='/'>Dashboard</NavLink>
-          </li>
-          <li className='nav-item'>
-            <NavLink className='nav-link' exact to='/games'>Games</NavLink>
-          </li>
           {currentUser && (
             <React.Fragment>
               <li className='nav-item'>
-                <NavLink className='nav-link' to='/games/new'>Add Game</NavLink>
+                {/* Don't forget the 'exact' prop for home nav link */}
+                <NavLink className='nav-link' exact to='/'>Dashboard</NavLink>
+              </li>
+              <li className='nav-item'>
+                <NavLink className='nav-link' exact to='/sheets'>Sheets</NavLink>
+              </li>
+              <li className='nav-item'>
+                <NavLink className='nav-link' to='/notes'>Notes</NavLink>
+              </li>
+              <li className='nav-item'>
+                <NavLink className='nav-link' to='/tasks'>Tasks</NavLink>
               </li>
               <li className='nav-item'>
                 <span onClick={logout} className='nav-link'>Logout</span>

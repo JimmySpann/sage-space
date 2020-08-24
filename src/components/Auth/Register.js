@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+// import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 class Register extends Component {
@@ -9,7 +9,7 @@ class Register extends Component {
       email: '',
       password: '',
     },
-    errorMessage: "test",
+    errorMessage: "",
     confirmedPassword: ""
   };
 
@@ -24,36 +24,29 @@ class Register extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-
-    //Sets state again when handleChange isn't updated.
-    this.setState({
-      form: {
+    //Validate passwords matches with confirmed password
+    if(document.querySelector('#password2').value === document.querySelector('#password').value) {
+      let form = {
         username: document.querySelector('#username').value,
         email: document.querySelector('#email').value,
-        password: document.querySelector('#password').value,
-      },
-    }).then((err, succes) => {
-          //Validate passwords matches with confirmed password
-          console.log(document.querySelector('#password2').value, this.state.form.password, this.state.form);
-          if(document.querySelector('#password2').value === this.state.form.password) {
-            axios.post(`${process.env.REACT_APP_API}/auth/register`, this.state.form)
-              .then((res) => {
-                console.log(res);
-                this.props.history.push('/login');
-              })
-              .catch((err) => {
-                console.log(err.response.status);
-                console.log(err.response.data);
-                console.log(err.response.data.message);
-                this.setState({errorMessage: err.response.data.message});
-                console.log(this.state.errorMessage);
-              });
-          } else {
-            this.setState({errorMessage: "Passwords do not match"});
-          }
-        }
-          )
-  }
+        password: document.querySelector('#password').value
+      }
+      axios.post(`${process.env.REACT_APP_API}/auth/register`, form)
+        .then((res) => {
+          console.log(res);
+          this.props.history.push('/login');
+        })
+        .catch((err) => {
+          console.log(err.response.status);
+          console.log(err.response.data);
+          console.log(err.response.data.message);
+          this.setState({errorMessage: err.response.data.message});
+          console.log(this.state.errorMessage);
+        });
+    } else {
+      this.setState({errorMessage: "Passwords do not match"});
+    }
+}
 
   render() {
     console.log(this.props);
@@ -62,19 +55,19 @@ class Register extends Component {
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label htmlFor="username">Username</label>
-            <input onChange={this.handleChange} type="text" id="username" name="username" value={this.state.username} />
+            <input onChange={this.handleChange} type="text" id="username" name="username" />
           </div>
           <div className="form-group">
             <label htmlFor="name">Email</label>
-            <input onChange={this.handleChange} type="email" id="email" name="email" value={this.state.email} />
+            <input onChange={this.handleChange} type="email" id="email" name="email" />
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
-            <input onChange={this.handleChange} type="password" id="password" name="password" value={this.state.password} />
+            <input onChange={this.handleChange} type="password" id="password" name="password" />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Confirm Password</label>
-            <input type="password" id="password2" name="password2" value={this.confirmedPassword} />
+            <label htmlFor="password2">Password</label>
+            <input onChange={this.handleChange} type="password" id="password2" name="password2" />
           </div>
           <button className="btn btn-primary float-right" type="submit">Register</button>
         </form>

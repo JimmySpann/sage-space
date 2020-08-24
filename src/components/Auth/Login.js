@@ -21,7 +21,12 @@ class Login extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    axios.post(`${process.env.REACT_APP_API}/auth/login`, this.state.form)
+    let form = {
+      email: document.querySelector('#email').value,
+      password: document.querySelector('#password').value
+    }
+    console.log(form);
+    axios.post(`${process.env.REACT_APP_API}/auth/login`, form)
       .then((res) => {
         console.log(res);
         this.props.setCurrentUser(res.data.token);

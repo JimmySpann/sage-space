@@ -4,6 +4,11 @@ import jwt_decode from 'jwt-decode';
 import Routes from './config/routes';
 import NavBar from './components/NavBar/NavBar';
 import setAuthHeader from './utils/setAuthHeader';
+
+import ErrorWrapper from "./pages/ErrorWrapper";
+import ThemeWrapper from "./pages/ThemeWrapper";
+import NotifyWrapper from "./pages/NotifyWrapper";
+
 import './App.css';
 
 class App extends React.Component {
@@ -48,10 +53,16 @@ class App extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <NavBar currentUser={this.state.currentUser} logout={this.logout} />
-         <div className="container">
-           <Routes currentUser={this.state.currentUser} setCurrentUser={this.setCurrentUser} />
-         </div>
+        <ThemeWrapper>
+          <ErrorWrapper>
+            <NotifyWrapper>
+              <NavBar currentUser={this.state.currentUser} logout={this.logout} />
+                <div className="container">
+                  <Routes currentUser={this.state.currentUser} setCurrentUser={this.setCurrentUser} />
+                </div>
+            </NotifyWrapper>
+          </ErrorWrapper>
+        </ThemeWrapper>
       </React.Fragment>
     );
   }
