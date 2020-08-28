@@ -10,10 +10,12 @@ import ToDoList from "./ToDoList";
 import { create, load, save } from "./items";
 import { get as getOption } from "./options";
 
+// import TaskModel from '../../models/task';
+
 export default function DashboardContent() {
   // List of all items
   const [items, setItems] = useState([]);
-  // String to filter items
+    // String to filter items
   const [filter, setFilter] = useState("");
   // Other hooks
   const { enqueueSnackbar } = useSnackbar();

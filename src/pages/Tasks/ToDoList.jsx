@@ -33,10 +33,10 @@ export default function ToDoList({
     items[index] = item;
     onChange(items);
   };
-
+  
   const optShowDeleted = getOption("showDeleted", v => v === "true");
   const optFilter = getOption("filter", v => v === "true");
-
+  
   // Apply filter on active items if filter option is active
   const lowerCaseFilter = filter.toLowerCase();
   const filterItems = items.filter(
@@ -50,11 +50,11 @@ export default function ToDoList({
       {filterItems
         .filter(({ complete }) => !complete)
         .map(({ uid, ...props }) => (
-          <ToDoItem
-            key={uid}
-            item={{ uid, ...props }}
-            onChange={handleChange}
-          />
+         <ToDoItem
+           key={uid}
+           item={{ uid, ...props }}
+           onChange={handleChange}
+         />
         ))}
       {filterItems
         .filter(({ complete }) => complete)
@@ -86,14 +86,17 @@ function ToDoItem({ onChange, item }) {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const classes = useStyle();
 
+  //Complete Task
   const handleToggle = ev => {
     onChange({ ...item, complete: !complete });
   };
 
+  //Change Task
   const handleChange = ({ target: { value } }) => {
     onChange({ ...item, value });
   };
 
+  //Delete Task
   const handleDelete = () => {
     onChange({ ...item, deleted: true });
     const key = enqueueSnackbar("Item deleted", {

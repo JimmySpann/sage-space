@@ -13,11 +13,7 @@ function NavBar({ currentUser, logout }) {
           {currentUser && (
             <React.Fragment>
               <li className='nav-item'>
-                {/* Don't forget the 'exact' prop for home nav link */}
-                <NavLink className='nav-link' exact to='/'>Dashboard</NavLink>
-              </li>
-              <li className='nav-item'>
-                <NavLink className='nav-link' exact to='/sheets'>Sheets</NavLink>
+                <NavLink className='nav-link' to='/notes/add'>Add Note</NavLink>
               </li>
               <li className='nav-item'>
                 <NavLink className='nav-link' to='/notes'>Notes</NavLink>

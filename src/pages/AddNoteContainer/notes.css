@@ -1,0 +1,133 @@
+.container {
+  width: 100%;
+}
+
+.row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.post-title-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.action-btns{
+  display: flex;
+}
+
+.delete-button{
+  border-radius: 100%;
+  background-color: #D90429;
+  color: #ffffff;
+  border-color: transparent;
+  height: 42px;
+  width: 42px;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 16px;
+}
+
+.delete-button:hover {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+.edit-button{
+  border-radius: 100%;
+  background-color: #2B2D42;
+  color: #ffffff;
+  border-color: transparent;
+  height: 42px;
+  width: 42px;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 16px;
+}
+.edit-button:hover {
+    color: black;
+}
+
+.check-button {
+    border-radius: 100%;
+    background-color: green;
+    color: #ffffff;
+    border-color: transparent;
+    height: 42px;
+    width: 42px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 16px;
+}
+.check-button:hover {
+    color: black;
+}
+
+#id_body {
+    width: 100%;
+    height: 100%;
+}
+
+.textarea {
+    display: block;
+    width: 100%;
+  }
+
+
+/* ------- PROMPT ------ */
+
+.mask {
+    position: absolute;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0, 0.26);
+  }
+
+.prompt-mask {
+    display: none;
+    cursor: pointer;
+  }
+  .prompt-mask.show {
+    display: flex;
+  }
+  
+  .prompt {
+    position: relative;
+    cursor: default;
+    background-color: rgb(241, 241, 241);
+    border-radius: 20px;
+    text-align: center;
+    width: 500px;
+    height: 140px;
+    box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.26);
+  }
+  .prompt h4 {
+    margin: 5px;
+  }
+  .prompt-buttons {
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .cancel-btn {
+    margin-left: 10px;
+  }
+
+  form {
+    width: 100%;
+  }

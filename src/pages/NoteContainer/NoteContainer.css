@@ -1,0 +1,23 @@
+.wrapper {
+    flex-grow: 0;
+    margin-top: -53px;
+    margin-left: -66px;
+    position: fixed;
+
+}
+
+#sidebar {
+    width: 250px;
+    height: 100vh;
+    z-index: 999;
+    background-color: #2867c5;
+    background-size: cover;
+    color: #fff;
+    transition: all 0.3s;
+    overflow: auto;
+}
+
+.note {
+    margin-left: 250px;
+}
+

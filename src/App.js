@@ -9,6 +9,7 @@ import ErrorWrapper from "./pages/ErrorWrapper";
 import ThemeWrapper from "./pages/ThemeWrapper";
 import NotifyWrapper from "./pages/NotifyWrapper";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 class App extends React.Component {

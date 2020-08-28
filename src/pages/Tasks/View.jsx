@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import Page from "../Page";
-import Header from "./Header";
+// import Header from "./Header";
 import Content from "./Content";
 import Drawer from "./Drawer";
 
