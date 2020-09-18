@@ -13,6 +13,9 @@ function NavBar({ currentUser, logout }) {
           {currentUser && (
             <React.Fragment>
               <li className='nav-item'>
+                <NavLink className='nav-link' to='/schedule'>Schedule</NavLink>
+              </li>
+              <li className='nav-item'>
                 <NavLink className='nav-link' to='/notes/add'>Add Note</NavLink>
               </li>
               <li className='nav-item'>

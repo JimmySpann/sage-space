@@ -3,6 +3,7 @@ const token = localStorage.getItem('token');
 
 class NoteModel {
   static getAllNotes = () => {
+    console.log(url);
     return fetch(url, {
       method: 'GET',
       headers: {

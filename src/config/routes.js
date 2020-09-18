@@ -5,6 +5,7 @@ import Dashboard from '../pages/Dashboard/Dashboard';
 import Notes from '../pages/NoteContainer/NoteContainer';
 import EditNotes from '../pages/EditNoteContainer/EditNoteContainer';
 import AddNotes from '../pages/AddNoteContainer/AddNoteContainer';
+import Schedule from '../pages/ScheduleContainer/ScheduleContainer';
 import DashboardView from '../pages/Tasks/View'
 
 import Login from '../components/Auth/Login';
@@ -36,6 +37,8 @@ export default ({ currentUser, setCurrentUser }) => (
         ? <DashboardView />
         : <Redirect to='/login' />
     }/>
+
+    <Route exact path='/schedule' component={Schedule}/>
 
     <Route path='/login' render={() => <Login setCurrentUser={setCurrentUser} />} />
     <Route path='/register' component={Register} />

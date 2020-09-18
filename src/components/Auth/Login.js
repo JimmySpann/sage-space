@@ -30,10 +30,10 @@ class Login extends Component {
       .then((res) => {
         console.log(res);
         this.props.setCurrentUser(res.data.token);
-        this.props.history.push('/dashboard');
+        this.props.history.push('/notes');
       })
       .catch((err) => {
-        console.log(err.response.status);
+        console.log(err.response);
         console.log(err.response.data);
         console.log(err.response.data.message);
         this.setState({errorMessage: err.response.data.message});
