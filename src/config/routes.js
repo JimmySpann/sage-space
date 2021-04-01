@@ -16,7 +16,7 @@ export default ({ currentUser, setCurrentUser }) => (
   <Switch>
     <Route exact path='/' render={() => 
       currentUser
-        ? <Notes />
+        ? <Dashboard />
         : <Redirect to='/login' />
     }/>
 
