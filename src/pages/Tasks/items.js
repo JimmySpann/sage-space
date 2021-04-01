@@ -1,15 +1,23 @@
 import { v1 as uuid } from "uuid";
+import TaskModel from "../../models/task"
+import consoleLog from "../../utils/debugging/customDebugging"
 
 const storage = localStorage;
 
 export function load() {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(JSON.parse(storage.getItem("items")) || []);
-    } catch (err) {
-      reject(err);
-    }
-  });
+  // return new Promise((resolve, reject) => {
+  //   try {
+  //     resolve(JSON.parse(storage.getItem("items")) || []);
+  //   } catch (err) {
+  //     reject(err);
+  //   }
+  // });
+  return TaskModel.getAllTasks()
+  .then((result) => {
+    consoleLog("tasks:", result)
+    return result
+  })
+  .catch((err) => console.log(err))
 }
 
 export function create(value) {

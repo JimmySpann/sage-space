@@ -3,7 +3,13 @@ const token = localStorage.getItem('token');
 
 class TaskModel {
   static getAllTasks = () => {
-    return fetch(url)
+    return fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': token,
+      }
+    })
       .then((response) => response.json())
   }
 
