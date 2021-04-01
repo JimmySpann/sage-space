@@ -33,15 +33,10 @@ class Register extends Component {
       }
       axios.post(`${process.env.REACT_APP_API}/auth/register`, form)
         .then((res) => {
-          console.log(res);
           this.props.history.push('/login');
         })
         .catch((err) => {
-          console.log(err.response.status);
-          console.log(err.response.data);
-          console.log(err.response.data.message);
           this.setState({errorMessage: err.response.data.message});
-          console.log(this.state.errorMessage);
         });
     } else {
       this.setState({errorMessage: "Passwords do not match"});

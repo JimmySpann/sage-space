@@ -11,24 +11,24 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import '../AddNoteContainer/notes.css'
 
 import "./NoteContainer.css"
+import consoleLog from '../../utils/debugging/customDebugging';
 
 class NoteContainer extends React.Component {
   state = {
     notes: [],
     note: {},
-    open: true
+    open: true,
+    isLoading: true
   };
 
   componentDidMount() {
     NoteModel.getAllNotes()
       .then((result) => {
-        console.log(result);
-        this.setState({notes: result});
         if(this.props.match.params.id) {
-          this.setState({note: result.find(element => element._id === this.props.match.params.id)});
+          this.setState({notes: result, note: result.find(element => element._id === this.props.match.params.id)});
         } else {
-          const recentNote = this.state.notes.reduce((a, b) => (a.updatedAt > b.updatedAt ? a : b));
-          this.setState({note: recentNote});
+          const recentNote = result.reduce((a, b) => (a.updatedAt > b.updatedAt ? a : b));
+          this.setState({notes: result, note: recentNote});
           this.props.history.push(`/notes/${recentNote._id}`);
         }
       })
@@ -58,6 +58,7 @@ class NoteContainer extends React.Component {
   }
 
   render() {
+    console.log(this.state, "Whats happening");
     const notesList = this.state.notes.map((note) => {
       return (
           <ListItem button key={note._id} onClick={() => this.handleListItemClick(note)}>
