@@ -3,7 +3,7 @@ class Debugger
     static isDebugOn = true
 }
 
-export default function consoleLog(value)
+export default function debugLog(value)
 {
     if(Debugger.isDebugOn)
     {

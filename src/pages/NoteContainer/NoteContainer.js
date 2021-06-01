@@ -11,7 +11,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import '../AddNoteContainer/notes.css'
 
 import "./NoteContainer.css"
-import consoleLog from '../../utils/debugging/customDebugging';
+import debugLog from "../../utils/customDebugging";
 
 class NoteContainer extends React.Component {
   state = {
@@ -32,7 +32,7 @@ class NoteContainer extends React.Component {
           this.props.history.push(`/notes/${recentNote._id}`);
         }
       })
-      .catch((err) => console.log(err))
+      .catch((err) => debugLog(err))
   }
 
   handleListItemClick(note) {
@@ -43,22 +43,22 @@ class NoteContainer extends React.Component {
   deleteNote() {
     NoteModel.deleteNote(this.state.note)
     .then((result) => {
-      console.log(result);
+      debugLog(result);
       document.querySelector('.prompt-mask').classList.remove('show');
       NoteModel.getAllNotes()
       .then((result) => {
-        console.log(result);
+        debugLog(result);
         this.setState({notes: result});
         const recentNote = this.state.notes.reduce((a, b) => (a.updatedAt > b.updatedAt ? a : b));
         this.setState({note: recentNote});
         this.props.history.push(`/notes/${recentNote._id}`);
         })
       })
-      .catch((err) => console.log(err))
+      .catch((err) => debugLog(err))
   }
 
   render() {
-    console.log(this.state, "Whats happening");
+    debugLog(this.state, "Whats happening");
     const notesList = this.state.notes.map((note) => {
       return (
           <ListItem button key={note._id} onClick={() => this.handleListItemClick(note)}>

@@ -1,6 +1,6 @@
 import { v1 as uuid } from "uuid";
 import TaskModel from "../../models/task"
-import consoleLog from "../../utils/debugging/customDebugging"
+import debugLog from "../../utils/customDebugging"
 
 const storage = localStorage;
 
@@ -14,10 +14,10 @@ export function load() {
   // });
   return TaskModel.getAllTasks()
   .then((result) => {
-    consoleLog("tasks:", result)
+    debugLog("tasks:", result)
     return result
   })
-  .catch((err) => console.log(err))
+  .catch((err) => debugLog(err))
 }
 
 export function create(value) {
