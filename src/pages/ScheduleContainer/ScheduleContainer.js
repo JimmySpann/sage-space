@@ -57,6 +57,7 @@ export default class ScheduleContainer extends React.Component {
               right: 'dayGridMonth,timeGridWeek,timeGridDay'
             }}
             initialView='dayGridMonth'
+            contentHeight='auto'
             editable={true}
             selectable={true}
             selectMirror={true}
@@ -144,6 +145,7 @@ export default class ScheduleContainer extends React.Component {
 
   handleEventClick = (clickInfo) => {
     if (window.confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+
       clickInfo.event.remove()
     }
   }
