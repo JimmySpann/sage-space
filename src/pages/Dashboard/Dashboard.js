@@ -54,6 +54,12 @@ class Dashboard extends React.Component {
   render() {
     return (
       <div>
+
+        <p>When i feel discomfort, i'm using it as a signal to stop, I need to change the
+        way I see discomfort to the belief that discomfort means go. It means i'm on
+        to something meaningful. It means that i must keep going because the things
+        that are rewarding are the things that cause me discomfort</p>
+
         <h1>Dashboard</h1>
 
         <h3>Total Time: 15:21</h3>
