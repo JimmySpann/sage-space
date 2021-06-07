@@ -1,20 +1,20 @@
 import React from 'react'
-import EventModel from '../../models/event';
+import {Event, EventModel} from '../../models/event';
 import FullCalendar, { formatDate } from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import { INITIAL_EVENTS, createEventId } from './event-utils'
-import debugLog from "../../utils/customDebugging"
+import debugLog from '../../utils/customDebugging';
 
 export default class ScheduleContainer extends React.Component {
 
     state = {
       weekendsVisible: true,
-      currentEvents: []
+      displayedEvents: []
     }
 
-
+  
 
   componentDidMount() {
     // NoteModel.getAllNotes()
@@ -27,22 +27,20 @@ export default class ScheduleContainer extends React.Component {
     //       this.props.history.push(`/notes/${recentNote._id}`);
     //     }
     //   })
-    //   .catch((err) => debugLog(err))
+    //   .catch((err) => console.log(err))
     
-    let val1 = [];
+    let allEvents = [];
     EventModel.getAll()
       .then((result) => {
-        debugLog("works", result)
-        val1 = result;
-        this.setState({
-          currentEvents: val1
-        })
+        allEvents = result;
+        this.setState({ displayedEvents: allEvents })
       })
       .catch((error) => {
-        debugLog("error", error)
+        debugLog(error)
       })
   }
 
+  //Rendering
 
   render() {
     return (
@@ -57,22 +55,21 @@ export default class ScheduleContainer extends React.Component {
               right: 'dayGridMonth,timeGridWeek,timeGridDay'
             }}
             initialView='dayGridMonth'
-            contentHeight='auto'
             editable={true}
             selectable={true}
             selectMirror={true}
             dayMaxEvents={true}
             weekends={this.state.weekendsVisible}
-            events={this.state.currentEvents}
+            events={this.state.displayedEvents}
             select={this.handleDateSelect}
             eventContent={renderEventContent} // custom render function
             eventClick={this.handleEventClick}
             // eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
-            /* you can update a remote database when these fire:
-            eventAdd={function(){}}
-            eventChange={function(){}}
-            eventRemove={function(){}}
-            */
+            // you can update a remote database when these fire:
+            // eventAdd={function(){}}
+            // eventChange={function(){}}
+            // eventRemove={function(){}}
+             
           />
         </div>
       </div>
@@ -101,9 +98,9 @@ export default class ScheduleContainer extends React.Component {
           </label>
         </div>
         <div className='demo-app-sidebar-section'>
-          <h2>All Events ({this.state.currentEvents.length})</h2>
+          <h2>All Events ({this.state.displayedEvents.length})</h2>
           <ul>
-            {this.state.currentEvents.map(renderSidebarEvent)}
+            {/* {this.state.displayedEvents.map(renderSidebarEvent)} */}
           </ul>
         </div>
       </div>
@@ -123,36 +120,51 @@ export default class ScheduleContainer extends React.Component {
     calendarApi.unselect() // clear date selection
 
     if (title) {
-      const event = {
+      const event = /*new Event(*/{
         id: createEventId(),
         title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
+        start: selectInfo.start,
+        end: selectInfo.end,
         allDay: selectInfo.allDay
-      }
-      debugLog(selectInfo)
+      }//)
+      debugLog("createdEvent", event)
+      debugLog("selectInfo", selectInfo)
 
       EventModel.create(event)
        .then((newEvent) => {
          calendarApi.addEvent(newEvent)
        })
        .catch(error => {
-        debugLog("error", error)
+        console.log("error", error)
        })
       
     }
   }
 
   handleEventClick = (clickInfo) => {
-    if (window.confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
 
-      clickInfo.event.remove()
+    debugLog(clickInfo.event)
+
+    if (window.confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+      
+      EventModel.delete(clickInfo.event)
+      .then((newEvent) => {
+        clickInfo.event.remove()
+        let currentEvents = this.state.displayedEvents
+        this.setState({
+          displayedEvents: [...currentEvents, newEvent]
+        })
+      })
+      .catch(error => {
+       console.log("error", error)
+      })
+      
     }
   }
 
   // handleEvents = (events) => {
   //   this.setState({
-  //     currentEvents: events
+  //     displayedEvents: events
   //   })
   // }
 
@@ -169,7 +181,7 @@ function renderEventContent(eventInfo) {
 
 function renderSidebarEvent(event) {
   return (
-    <li key={event.id}>
+    <li key={event._id}>
       <b>{formatDate(event.start, {year: 'numeric', month: 'short', day: 'numeric'})}</b>
       <i>{event.title}</i>
     </li>
