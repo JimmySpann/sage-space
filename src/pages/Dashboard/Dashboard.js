@@ -3,7 +3,23 @@ import WorkTimeModel from '../../models/workTime';
 
 import "./Dashboard.css";
 
+class TimeActivity {
+  constructor(clock_in, clock_out, activity) {
+    this.clock_in = clock_in
+    this.clock_out = clock_out
+    this.activity = activity
+  }
+}
+
 class Dashboard extends React.Component {
+
+
+  state = {
+    time_activity: [
+      new TimeActivity(new Date(2020,5,24,22,0,0,0), new Date(2020,5,24,23,0,0,0), "Test App"),
+      new TimeActivity(new Date(2020,5,24,23,0,0,0), new Date(2020,5,24,24,0,0,0), "Read")
+    ]
+  }
 
   componentDidMount() {
     WorkTimeModel.createWorkTime({weekdays: [{activities: [{activity: "test"}]}]})
@@ -14,6 +30,27 @@ class Dashboard extends React.Component {
     .catch((err) => console.log(err))
   }
 
+  timeRow = (clock_in, clock_out, activity) => {
+    console.log("props",clock_in)
+    return(         
+        <tr>
+          <td>{clock_in.toLocaleTimeString([],{ hour: '2-digit', minute: '2-digit' })}</td>
+          <td>{clock_out.toLocaleTimeString([],{ hour: '2-digit', minute: '2-digit' })}</td>
+          <td>{activity}</td>
+        </tr>
+      )
+  }
+  timeRows = (props) => {
+    const items = []
+    console.log("timeRows", props)
+    for (const values of props)
+    {
+        items.push(this.timeRow(values.clock_in, values.clock_out, values.activity))
+    }
+    return(items)
+
+  }
+
   render() {
     return (
       <div>
@@ -22,22 +59,26 @@ class Dashboard extends React.Component {
         <h3>Total Time: 15:21</h3>
 
         <table>
-         <tr>
-          <td colspan="3">Monday 10/03/2020</td>
-         </tr>
-         <tr>
-          <td>Clock In</td>
-          <td>Clock Out</td>
-          <td>Activity</td>
-         </tr>
-         <tr>
-          <td>10:00PM</td>
-          <td>11:00PM</td>
-          <td>Test app</td>
-         </tr>
-         <tr>
-          <td colspan="3">1:00</td>
-         </tr>
+          <thead>
+            <tr>
+              <td colSpan="3">Monday 10/03/2020</td>
+            </tr>
+            <tr>
+              <td>Clock In</td>
+              <td>Clock Out</td>
+              <td>Activity</td>
+            </tr>
+          </thead>
+
+          <tbody>
+            {this.timeRows(this.state.time_activity)}
+          </tbody>
+
+          <tfoot>
+            <tr>
+              <td colSpan="3">10:00</td>
+            </tr>
+          </tfoot>
         </table>
       </div>
     );

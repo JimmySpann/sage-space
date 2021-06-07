@@ -1,16 +1,48 @@
 import React from 'react'
+import EventModel from '../../models/event';
 import FullCalendar, { formatDate } from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import { INITIAL_EVENTS, createEventId } from './event-utils'
+import debugLog from "../../utils/customDebugging"
 
 export default class ScheduleContainer extends React.Component {
 
-  state = {
-    weekendsVisible: true,
-    currentEvents: []
+    state = {
+      weekendsVisible: true,
+      currentEvents: []
+    }
+
+
+
+  componentDidMount() {
+    // NoteModel.getAllNotes()
+    //   .then((result) => {
+    //     if(this.props.match.params.id) {
+    //       this.setState({notes: result, note: result.find(element => element._id === this.props.match.params.id)});
+    //     } else {
+    //       const recentNote = result.reduce((a, b) => (a.updatedAt > b.updatedAt ? a : b));
+    //       this.setState({notes: result, note: recentNote});
+    //       this.props.history.push(`/notes/${recentNote._id}`);
+    //     }
+    //   })
+    //   .catch((err) => debugLog(err))
+    
+    let val1 = [];
+    EventModel.getAll()
+      .then((result) => {
+        debugLog("works", result)
+        val1 = result;
+        this.setState({
+          currentEvents: val1
+        })
+      })
+      .catch((error) => {
+        debugLog("error", error)
+      })
   }
+
 
   render() {
     return (
@@ -25,16 +57,17 @@ export default class ScheduleContainer extends React.Component {
               right: 'dayGridMonth,timeGridWeek,timeGridDay'
             }}
             initialView='dayGridMonth'
+            contentHeight='auto'
             editable={true}
             selectable={true}
             selectMirror={true}
             dayMaxEvents={true}
             weekends={this.state.weekendsVisible}
-            initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
+            events={this.state.currentEvents}
             select={this.handleDateSelect}
             eventContent={renderEventContent} // custom render function
             eventClick={this.handleEventClick}
-            eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
+            // eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
             /* you can update a remote database when these fire:
             eventAdd={function(){}}
             eventChange={function(){}}
@@ -90,27 +123,38 @@ export default class ScheduleContainer extends React.Component {
     calendarApi.unselect() // clear date selection
 
     if (title) {
-      calendarApi.addEvent({
+      const event = {
         id: createEventId(),
         title,
         start: selectInfo.startStr,
         end: selectInfo.endStr,
         allDay: selectInfo.allDay
-      })
+      }
+      debugLog(selectInfo)
+
+      EventModel.create(event)
+       .then((newEvent) => {
+         calendarApi.addEvent(newEvent)
+       })
+       .catch(error => {
+        debugLog("error", error)
+       })
+      
     }
   }
 
   handleEventClick = (clickInfo) => {
     if (window.confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+
       clickInfo.event.remove()
     }
   }
 
-  handleEvents = (events) => {
-    this.setState({
-      currentEvents: events
-    })
-  }
+  // handleEvents = (events) => {
+  //   this.setState({
+  //     currentEvents: events
+  //   })
+  // }
 
 }
 
