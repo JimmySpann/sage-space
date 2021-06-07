@@ -3,11 +3,27 @@ class Debugger
     static isDebugOn = true
 }
 
-export default function debugLog(value)
+export default function debugLog(title, value)
 {
     if(Debugger.isDebugOn)
     {
-        console.log(value)
+        if(!value)
+        {
+            let variableName = Object.keys({title})[0]
+            console.log(variableName, title)
+        }
+        else{
+            console.log(title, value)
+        }
+    }
+}
+
+export function devLog(value)
+{
+    if(Debugger.isDebugOn)
+    {
+        let variableName = Object.keys({value})[0]
+        console.log(variableName, value)
     }
 }
 
