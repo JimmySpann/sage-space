@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
+import debugLog from '../../utils/customDebugging';
 
 class Login extends Component {
   state = {
@@ -25,7 +26,6 @@ class Login extends Component {
       email: document.querySelector('#email').value,
       password: document.querySelector('#password').value
     }
-    console.log(form);
     axios.post(`${process.env.REACT_APP_API}/auth/login`, form)
       .then((res) => {
         console.log(res);
@@ -33,11 +33,11 @@ class Login extends Component {
         this.props.history.push('/notes');
       })
       .catch((err) => {
-        console.log(err.response);
-        console.log(err.response.data);
-        console.log(err.response.data.message);
+        debugLog(err.response);
+        debugLog(err.response.data);
+        debugLog(err.response.data.message);
         this.setState({errorMessage: err.response.data.message});
-        console.log(this.state.errorMessage);
+        debugLog(this.state.errorMessage);
       });
 
   }
