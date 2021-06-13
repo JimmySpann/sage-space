@@ -40,6 +40,7 @@ class Dashboard extends React.Component {
         </tr>
       )
   }
+  
   timeRows = (props) => {
     const items = []
     console.log("timeRows", props)

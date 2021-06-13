@@ -87,6 +87,7 @@ export default function ScheduleContainer() {
     }
   }
 
+  //Test for displayedEvents
   useEffect(() => {
     debugLog("displayedEvents", displayedEvents)
   }, [displayedEvents])
@@ -97,6 +98,7 @@ export default function ScheduleContainer() {
   //   })
   // }
 
+  //Render custom components
   function renderSidebar() {
     return (
       <div className='demo-app-sidebar'>
@@ -167,6 +169,7 @@ export default function ScheduleContainer() {
             right: 'dayGridMonth,timeGridWeek,timeGridDay'
           }}
           initialView='dayGridMonth'
+          contentHeight= 'auto'
           editable={true}
           selectable={true}
           selectMirror={true}
@@ -181,7 +184,6 @@ export default function ScheduleContainer() {
           // eventAdd={function(){}}
           // eventChange={function(){}}
           // eventRemove={function(){}}
-           
         />
       </div>
     </div>
