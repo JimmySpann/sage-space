@@ -39,7 +39,7 @@ input[type="password"] {
   display: block;
   width: 100%;
   padding: 10px 15px;
-  margin: 0 auto 15px;
+  margin: 0 auto 0px;
   font-size: 18px;
 }
 
@@ -64,4 +64,9 @@ input[type="checkbox"] {
   max-width: 1200px;
   padding: 1% 2%;
   margin: 0 auto;
+}
+
+/* Customizations */
+.MuiDialog-paperWidthSm {
+  padding: 25px
 }
