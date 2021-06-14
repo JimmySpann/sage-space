@@ -1,5 +1,6 @@
 import React from 'react';
 import WorkTimeModel from '../../models/workTime';
+import debugLog from "../../utils/customDebugging"
 
 import "./Dashboard.css";
 
@@ -43,7 +44,7 @@ class Dashboard extends React.Component {
   
   timeRows = (props) => {
     const items = []
-    console.log("timeRows", props)
+    debugLog("TEST")
     for (const values of props)
     {
         items.push(this.timeRow(values.clock_in, values.clock_out, values.activity))

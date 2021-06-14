@@ -18,12 +18,3 @@ export default function debugLog(title, value)
     }
 }
 
-export function devLog(value)
-{
-    if(Debugger.isDebugOn)
-    {
-        let variableName = Object.keys({value})[0]
-        console.log(variableName, value)
-    }
-}
-
