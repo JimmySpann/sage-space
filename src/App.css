@@ -65,8 +65,3 @@ input[type="checkbox"] {
   padding: 1% 2%;
   margin: 0 auto;
 }
-
-/* Customizations */
-.MuiDialog-paperWidthSm {
-  padding: 25px
-}

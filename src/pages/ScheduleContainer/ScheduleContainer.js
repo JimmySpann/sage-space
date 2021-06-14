@@ -7,7 +7,7 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import { createEventId } from './event-utils'
 import debugLog from '../../utils/customDebugging';
-import EditEventDialog from './EditEventDialog'
+import EditEventDialog from './EditEventDialog/EditEventDialog'
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
